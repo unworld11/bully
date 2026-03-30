@@ -1,4 +1,5 @@
 import { prepareWithSegments, type PreparedTextWithSegments } from '@chenglou/pretext'
+import './analytics.ts'
 
 // ── Config ──────────────────────────────────────────────────────────
 const FONT_SIZE = 14

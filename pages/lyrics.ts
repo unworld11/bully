@@ -4,6 +4,7 @@ import {
   type PreparedTextWithSegments,
 } from '@chenglou/pretext'
 import { TRACKS_LYRICS, type TrackLyrics } from './lyrics-data.ts'
+import './analytics.ts'
 
 function updateSpotifyEmbed(track: TrackLyrics): void {
   const iframe = document.querySelector('#spotify-mini-body iframe') as HTMLIFrameElement | null
