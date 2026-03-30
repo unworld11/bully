@@ -1,4 +1,5 @@
 import { prepareWithSegments, walkLineRanges, type PreparedTextWithSegments } from '@chenglou/pretext'
+import './analytics.ts'
 
 const LYRICS_TRACK_IDS = new Set(['01','03','05','06','08','09','11','12','13','14','15','16','18'])
 

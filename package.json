@@ -8,7 +8,8 @@
     "build": "bun run build.ts"
   },
   "dependencies": {
-    "@chenglou/pretext": "^0.0.3"
+    "@chenglou/pretext": "^0.0.3",
+    "@vercel/analytics": "^2.0.1"
   },
   "devDependencies": {
     "@types/bun": "latest",
