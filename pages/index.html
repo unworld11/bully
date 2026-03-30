@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>BULLY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --surface: #131313;
+      --surface-low: #1b1b1c;
+      --surface-container: #202020;
+      --surface-high: #2a2a2a;
+      --surface-highest: #353535;
+      --surface-lowest: #0e0e0e;
+      --primary: #ffffff;
+      --secondary: #c6c6c6;
+      --outline: #8e9192;
+      --outline-variant: #444748;
+      --error: #CC2228;
+      --on-primary: #2f3131;
+    }
+    html, body { height: 100%; background: var(--black); color: var(--primary); overflow-x: hidden; }
+    body { font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 32px; height: 80px;
+      background: var(--surface); border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .nav-logo {
+      background: var(--primary); color: var(--surface);
+      padding: 4px 16px; font-family: 'Epilogue', sans-serif;
+      font-weight: 900; font-size: 24px; text-transform: uppercase;
+      letter-spacing: -0.05em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-family: 'Epilogue', sans-serif; text-transform: uppercase;
+      font-weight: 900; letter-spacing: -0.05em; font-size: 14px;
+      text-decoration: none; padding: 2px 8px; transition: none;
+    }
+    .nav-links a.active { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
+    .nav-links a:not(.active) { color: var(--outline); }
+    .nav-links a:not(.active):hover { background: var(--primary); color: var(--surface); }
+    .nav-auth {
+      font-family: 'Space Grotesk', sans-serif; font-size: 10px;
+      letter-spacing: 0.2em; color: var(--outline); opacity: 0.5;
+      border: 1px solid rgba(142, 145, 146, 0.3); padding: 4px 8px;
+    }
+
+    /* Side Nav */
+    .side-nav {
+      position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 24px; z-index: 40;
+    }
+    .side-nav-label {
+      font-size: 12px; letter-spacing: 0.3em; color: var(--outline);
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .side-nav-label span { display: block; font-size: 10px; letter-spacing: 0.2em; color: var(--outline-variant); opacity: 0.5; }
+    .side-nav-items { display: flex; flex-direction: column; gap: 16px; }
+    .side-nav-items a {
+      font-size: 14px; letter-spacing: 0.2em; color: var(--outline-variant);
+      text-decoration: none; transition: none;
+    }
+    .side-nav-items a:hover { color: var(--primary); }
+    .side-nav-items a.active { color: var(--primary); font-weight: 700; transform: scale(1.25); transform-origin: left; }
+
+    /* Frame Lines */
+    .frame-lines { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .frame-lines .v-left { position: absolute; left: 32px; top: 0; bottom: 0; width: 1px; background: rgba(68, 71, 72, 0.2); }
+    .frame-lines .v-right { position: absolute; right: 32px; top: 0; bottom: 0; width: 1px; background: rgba(68, 71, 72, 0.2); }
+    .frame-lines .h-top { position: absolute; top: 80px; left: 0; right: 0; height: 1px; background: rgba(68, 71, 72, 0.2); }
+    .frame-lines .h-bottom { position: absolute; bottom: 48px; left: 0; right: 0; height: 1px; background: rgba(68, 71, 72, 0.2); }
+
+    /* ── Fluid Smoke Hero ─────────────────────────────────────────── */
+    .hero-smoke {
+      position: relative; width: 100%; height: 100vh;
+      overflow: hidden;
+    }
+    #fluid-art {
+      position: absolute; inset: 0;
+      padding-top: 80px;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .smoke-row {
+      white-space: pre; overflow: hidden;
+      font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+    }
+    .w3 { font-weight: 300; } .w5 { font-weight: 500; } .w7 { font-weight: 700; }
+    .it { font-style: italic; }
+    .a1  { color: rgba(255,255,255,0.04); }
+    .a2  { color: rgba(255,255,255,0.08); }
+    .a3  { color: rgba(255,255,255,0.14); }
+    .a4  { color: rgba(255,255,255,0.22); }
+    .a5  { color: rgba(255,255,255,0.32); }
+    .a6  { color: rgba(255,255,255,0.44); }
+    .a7  { color: rgba(255,255,255,0.58); }
+    .a8  { color: rgba(255,255,255,0.72); }
+    .a9  { color: rgba(255,255,255,0.86); }
+    .a10 { color: rgba(255,255,255,1.0); }
+
+    /* Content overlay on top of smoke */
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      pointer-events: none; padding-top: 80px;
+    }
+    .hero-overlay > * { pointer-events: auto; }
+
+    .hero-inner {
+      width: 100%; max-width: 1280px; padding: 0 32px;
+      display: flex; flex-direction: column; align-items: center; gap: 64px;
+    }
+    .hero-header {
+      width: 100%; display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 1px solid rgba(68, 71, 72, 0.3); padding-bottom: 32px;
+    }
+    .hero-header-left { display: flex; flex-direction: column; gap: 8px; }
+    .hero-header-left .eyebrow {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline); text-transform: uppercase;
+    }
+    .hero-header-left h2 {
+      font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 36px;
+      letter-spacing: -0.05em; text-transform: uppercase; line-height: 1;
+    }
+    .certified-badge {
+      border: 1px solid var(--primary); padding: 8px 16px;
+      font-size: 12px; letter-spacing: 0.1em; font-weight: 700; text-transform: uppercase;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    }
+
+    /* Giant BULLY title */
+    .title-block {
+      font-family: 'Epilogue', sans-serif; font-weight: 900;
+      font-size: clamp(80px, 20vw, 300px);
+      letter-spacing: -0.08em; text-transform: uppercase; line-height: 0.8;
+      text-align: center; user-select: none;
+      text-shadow: 0 0 120px rgba(255,255,255,0.15);
+      mix-blend-mode: difference;
+    }
+
+    /* Manifesto */
+    .manifesto {
+      width: 100%; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: end; padding-top: 48px;
+    }
+    .manifesto-text {
+      display: flex; flex-direction: column; gap: 32px; max-width: 560px;
+    }
+    .manifesto-text p {
+      font-size: 20px; line-height: 1.6; letter-spacing: -0.02em; color: var(--secondary);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+    }
+    .manifesto-text button {
+      width: fit-content; padding: 16px 48px;
+      border: 1px solid var(--primary); background: rgba(0,0,0,0.5);
+      color: var(--primary); font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase; letter-spacing: 0.2em; font-size: 14px;
+      cursor: pointer; transition: none; backdrop-filter: blur(4px);
+    }
+    .manifesto-text button:hover { background: var(--primary); color: var(--on-primary); }
+    .manifesto-meta {
+      display: flex; flex-direction: column; gap: 16px;
+      align-items: flex-end; text-align: right;
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline); text-transform: uppercase;
+    }
+
+    /* Metadata Section */
+    .metadata {
+      width: 100%; max-width: 1280px; margin: 0 auto; padding: 48px 32px 48px;
+      border-top: 1px solid rgba(68, 71, 72, 0.2);
+      display: flex; justify-content: space-between; gap: 32px;
+      position: relative; z-index: 3;
+      background: var(--black);
+    }
+    .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
+    .meta-item { display: flex; flex-direction: column; gap: 8px; }
+    .meta-item .meta-label { font-size: 10px; letter-spacing: 0.2em; color: var(--outline); text-transform: uppercase; }
+    .meta-item .meta-value { font-size: 14px; }
+    .meta-item .meta-value.pulse { color: var(--error); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .auth-box {
+      border: 1px solid rgba(68, 71, 72, 0.5); padding: 24px;
+      display: flex; flex-direction: column; gap: 16px; max-width: 320px;
+      background: var(--surface-lowest);
+    }
+    .auth-box .auth-label { font-size: 10px; letter-spacing: 0.2em; color: var(--outline); text-transform: uppercase; }
+    .auth-box .auth-content { display: flex; align-items: center; gap: 16px; }
+    .auth-box .auth-content .material-symbols-outlined { font-size: 36px; }
+    .auth-box .auth-content p { font-size: 10px; line-height: 1.6; color: var(--secondary); }
+
+    /* Pretext Stats */
+    .pretext-stats {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6, 6, 10, 0.88); backdrop-filter: blur(12px);
+      padding: 10px 24px; display: flex; gap: 32px; align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px; color: rgba(255, 255, 255, 0.35);
+    }
+    .stat { display: flex; gap: 6px; align-items: center; }
+    .stat-value { color: rgba(255, 255, 255, 0.7); font-weight: 600; }
+    .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Footer */
+    footer {
+      width: 100%; padding: 48px 32px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      background: var(--surface-lowest); border-top: 1px solid rgba(68, 71, 72, 0.2);
+      position: relative; z-index: 3;
+    }
+    footer .copyright { font-size: 10px; letter-spacing: 0.1em; color: var(--outline); text-transform: uppercase; }
+    footer .footer-links { display: flex; gap: 32px; }
+    footer .footer-links a {
+      font-size: 10px; letter-spacing: 0.1em; color: var(--outline);
+      text-transform: uppercase; text-decoration: none; transition: none;
+    }
+    footer .footer-links a:hover { color: var(--error); }
+
+    /* Verified Badge */
+    .verified-badge {
+      position: fixed; bottom: 56px; right: 32px; z-index: 50;
+      border: 1px solid var(--primary); padding: 4px 12px;
+      background: var(--black); font-size: 8px; letter-spacing: 0.3em;
+      font-weight: 700; text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .side-nav, .verified-badge { display: none; }
+      .manifesto { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: repeat(2, 1fr); }
+      .metadata { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">BULLY</a>
+    <div class="nav-links">
+      <a href="/" class="active">HOME</a>
+      <a href="/tracklist">TRACKLIST</a>
+      <a href="/lyrics">LYRICS</a>
+      <a href="#">CREDITS</a>
+    </div>
+    <div class="nav-auth">YZY // GAMMA</div>
+  </nav>
+
+  <aside class="side-nav">
+    <div class="side-nav-label">TRACKS<span>V.01</span></div>
+    <div class="side-nav-items">
+      <a href="/tracklist#track-01" class="active">01</a>
+      <a href="/tracklist#track-02">02</a>
+      <a href="/tracklist#track-03">03</a>
+      <a href="/tracklist#track-04">04</a>
+      <a href="/tracklist#track-05">05</a>
+      <a href="/tracklist#track-06">06</a>
+      <a href="/tracklist#track-07">07</a>
+      <a href="/tracklist#track-08">08</a>
+      <a href="/tracklist#track-09">09</a>
+      <a href="/tracklist#track-10">10</a>
+    </div>
+  </aside>
+
+  <div class="frame-lines">
+    <div class="v-left"></div>
+    <div class="v-right"></div>
+    <div class="h-top"></div>
+    <div class="h-bottom"></div>
+  </div>
+
+  <!-- Fluid Smoke Hero -->
+  <section class="hero-smoke">
+    <div id="fluid-art"></div>
+    <div class="hero-overlay">
+      <section class="hero-inner">
+        <div class="hero-header">
+          <div class="hero-header-left">
+            <span class="eyebrow">Studio Log 482.01</span>
+            <h2>THE VOID</h2>
+          </div>
+          <div class="certified-badge">YE // 2026</div>
+        </div>
+        <div class="title-block">BULLY</div>
+        <div class="manifesto">
+          <div class="manifesto-text">
+            <p>A STUDY IN INTERNAL STRUGGLE VS STATE OF GRACE. THE 12TH STUDIO ALBUM BY YE.</p>
+            <button>PRE-ORDER</button>
+          </div>
+          <div class="manifesto-meta">
+            <span>RECORDED IN ISOLATION</span>
+            <span>FLORENCE // TOKYO // SEOUL</span>
+            <span>2026 YZY / GAMMA</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="metadata">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">RELEASE</span>
+        <span class="meta-value">MARCH_28_2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">FORMAT</span>
+        <span class="meta-value">DIGITAL + PHYSICAL</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">LABEL</span>
+        <span class="meta-value">YZY / GAMMA</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">STATUS</span>
+        <span class="meta-value pulse">SYSTEM_PULSE</span>
+      </div>
+    </div>
+    <div class="auth-box">
+      <span class="auth-label">RELEASE INFO</span>
+      <div class="auth-content">
+        <span class="material-symbols-outlined">fingerprint</span>
+        <p>18 TRACKS. 42 MINUTES. RELEASED MARCH 28, 2026 VIA YZY AND GAMMA.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <span class="copyright">© 2026 YZY / GAMMA. ALL RIGHTS RESERVED.</span>
+    </div>
+    <div class="footer-links">
+      <a href="/tracklist">TRACKLIST</a>
+      <a href="/lyrics">LYRICS</a>
+      <a href="#">LEGAL</a>
+    </div>
+  </footer>
+
+  <div class="pretext-stats">
+    <div class="stat"><span class="stat-value" id="stat-grid">0×0</span><span class="stat-label">Grid</span></div>
+    <div class="stat"><span class="stat-value" id="stat-variants">0</span><span class="stat-label">Variants</span></div>
+    <div class="stat"><span class="stat-value" id="stat-fps">0</span><span class="stat-label">FPS</span></div>
+    <div class="stat"><span class="stat-value">PRETEXT</span><span class="stat-label">Engine</span></div>
+  </div>
+
+  <div class="verified-badge">BULLY // MARCH 2026</div>
+
+  <script type="module" src="./home.ts"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist",
+  "installCommand": "bun install",
+  "rewrites": [
+    { "source": "/tracklist", "destination": "/tracklist.html" },
+    { "source": "/lyrics", "destination": "/lyrics.html" }
+  ]
+}

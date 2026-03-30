@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>BULLY — LYRICS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --surface: #131313;
+      --surface-low: #1b1b1c;
+      --surface-container: #202020;
+      --surface-high: #2a2a2a;
+      --surface-highest: #353535;
+      --surface-lowest: #0e0e0e;
+      --primary: #ffffff;
+      --secondary: #c6c6c6;
+      --outline: #8e9192;
+      --outline-variant: #444748;
+      --error: #CC2228;
+      --on-primary: #2f3131;
+    }
+    html, body { min-height: 100%; background: var(--black); color: var(--primary); overflow-x: hidden; }
+    body { font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 32px; height: 80px;
+      background: var(--surface); border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .nav-logo {
+      background: var(--primary); color: var(--surface);
+      padding: 4px 16px; font-family: 'Epilogue', sans-serif;
+      font-weight: 900; font-size: 24px; text-transform: uppercase;
+      letter-spacing: -0.05em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-family: 'Epilogue', sans-serif; text-transform: uppercase;
+      font-weight: 900; letter-spacing: -0.05em; font-size: 14px;
+      text-decoration: none; padding: 2px 8px; transition: none;
+    }
+    .nav-links a.active { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
+    .nav-links a:not(.active) { color: var(--outline); }
+    .nav-links a:not(.active):hover { background: var(--primary); color: var(--surface); }
+
+    /* Side Nav */
+    .side-nav {
+      position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 24px; z-index: 40;
+    }
+    .side-nav-label {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline);
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .side-nav-label span { display: block; font-size: 10px; font-weight: 700; color: var(--primary); }
+    .side-nav-items { display: flex; flex-direction: column; gap: 16px; }
+    .side-nav-items a {
+      font-size: 14px; letter-spacing: 0.2em; color: var(--outline-variant);
+      text-decoration: none; transition: none;
+    }
+    .side-nav-items a:hover { color: var(--primary); }
+    .side-nav-items a.active { color: var(--primary); font-weight: 700; transform: scale(1.25); transform-origin: left; }
+
+    /* Main */
+    main {
+      min-height: 100vh; padding: 160px 32px 128px 192px;
+      max-width: 1100px;
+    }
+
+    /* Track Selector */
+    .track-selector {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px;
+    }
+    .track-selector button {
+      background: transparent; border: 1px solid var(--outline-variant);
+      color: var(--outline); padding: 6px 16px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      transition: none;
+    }
+    .track-selector button:hover { border-color: var(--primary); color: var(--primary); }
+    .track-selector button.active {
+      background: var(--primary); color: var(--on-primary);
+      border-color: var(--primary); font-weight: 700;
+    }
+
+    /* Header */
+    .lyrics-header { margin-bottom: 96px; border-bottom: 1px solid rgba(68, 71, 72, 0.2); padding-bottom: 48px; }
+    .lyrics-header .badges { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .lyrics-header .badge {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--primary);
+      border: 1px solid var(--primary); padding: 2px 8px; text-transform: uppercase;
+    }
+    .lyrics-header .stamp-id { font-size: 10px; letter-spacing: 0.2em; color: var(--outline); }
+    .lyrics-header h1 {
+      font-family: 'Epilogue', sans-serif; font-weight: 900;
+      text-transform: uppercase; letter-spacing: -0.05em; line-height: 0.9;
+    }
+
+    /* Layout Grid */
+    .lyrics-grid { display: grid; grid-template-columns: 240px 1fr; gap: 48px; }
+
+    /* Sidebar */
+    .lyrics-sidebar { position: sticky; top: 128px; align-self: start; }
+    .sidebar-section { margin-bottom: 48px; }
+    .sidebar-section h3 {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline);
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .sidebar-section ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-section ul li {
+      font-size: 12px; text-transform: uppercase; color: var(--primary);
+    }
+    .sidebar-section .tech-data {
+      font-size: 10px; color: var(--outline-variant); line-height: 1.8;
+    }
+
+    /* Lyrics Stage — pretext editorial engine reflow */
+    #lyrics-stage { position: relative; width: 100%; min-height: 400px; overflow: visible; }
+    .lyrics-line {
+      position: absolute; white-space: pre; pointer-events: none;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 300;
+      color: var(--primary); user-select: text; cursor: text;
+      letter-spacing: 0.002em;
+      transition: color 120ms ease;
+    }
+    .lyrics-line:hover { color: var(--error); }
+
+    .pq-box {
+      position: absolute; pointer-events: none;
+      border-left: 3px solid var(--outline-variant);
+      background: rgba(32, 32, 32, 0.4);
+    }
+    .pq-line {
+      position: absolute; white-space: pre; pointer-events: none;
+      font-family: 'Epilogue', sans-serif; font-weight: 900;
+      text-transform: uppercase; letter-spacing: -0.05em;
+      color: var(--primary); line-height: 0.9;
+    }
+
+    /* Pretext Stats */
+    .pretext-stats {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6, 6, 10, 0.88); backdrop-filter: blur(12px);
+      padding: 10px 24px; display: flex; gap: 32px; align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px; color: rgba(255, 255, 255, 0.35);
+    }
+    .stat { display: flex; gap: 6px; align-items: center; }
+    .stat-value { color: rgba(255, 255, 255, 0.7); font-weight: 600; }
+    .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Footer */
+    footer {
+      width: 100%; padding: 48px 32px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      background: var(--surface-lowest); border-top: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    footer .copyright { font-size: 10px; letter-spacing: 0.1em; color: var(--outline); text-transform: uppercase; }
+    footer .footer-links { display: flex; gap: 32px; }
+    footer .footer-links a {
+      font-size: 10px; letter-spacing: 0.1em; color: var(--outline);
+      text-transform: uppercase; text-decoration: none; transition: none;
+    }
+    footer .footer-links a:hover { color: var(--error); }
+
+    /* Spotify Mini Player */
+    .spotify-mini {
+      position: fixed; bottom: 48px; right: 32px; z-index: 60;
+      width: 352px;
+      background: var(--surface); border: 1px solid var(--outline-variant);
+      overflow: hidden;
+    }
+    .spotify-mini-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; background: var(--surface-lowest);
+      border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .spotify-mini-label {
+      font-size: 9px; letter-spacing: 0.2em; color: var(--outline);
+      text-transform: uppercase;
+    }
+    .spotify-mini-badge {
+      font-size: 8px; letter-spacing: 0.15em; color: #1DB954;
+      border: 1px solid rgba(29, 185, 84, 0.4); padding: 2px 6px;
+      text-transform: uppercase;
+    }
+    .spotify-mini-toggle {
+      background: none; border: none; color: var(--outline); cursor: pointer;
+      font-size: 14px; padding: 0 4px;
+    }
+    .spotify-mini-toggle:hover { color: var(--primary); }
+    .spotify-mini-body { transition: max-height 0.3s ease; overflow: hidden; }
+    .spotify-mini-body.collapsed { max-height: 0; }
+    .spotify-mini-body.expanded { max-height: 200px; }
+
+    @media (max-width: 768px) {
+      .nav-links, .side-nav, .certified-fixed { display: none; }
+      main { padding: 128px 16px 96px 16px; }
+      .lyrics-grid { grid-template-columns: 1fr; }
+      .lyrics-sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">BULLY</a>
+    <div class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/tracklist">TRACKLIST</a>
+      <a href="/lyrics" class="active">LYRICS</a>
+      <a href="#">CREDITS</a>
+    </div>
+  </nav>
+
+  <aside class="side-nav">
+    <div class="side-nav-label">TRACKS<span>V.01</span></div>
+    <div class="side-nav-items">
+      <a href="#" class="active">01</a>
+      <a href="#">02</a>
+      <a href="#">03</a>
+      <a href="#">04</a>
+      <a href="#">05</a>
+      <a href="#">06</a>
+      <a href="#">07</a>
+      <a href="#">08</a>
+      <a href="#">09</a>
+      <a href="#">10</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="track-selector" id="track-selector"></div>
+
+    <header class="lyrics-header">
+      <div class="badges">
+        <span class="badge">YZY / GAMMA</span>
+        <span class="stamp-id" id="stamp-id">STAMP_ID: 01_KING_V12</span>
+      </div>
+      <h1 id="lyrics-title" style="font-size: clamp(48px, 10vw, 112px);">01_KING</h1>
+    </header>
+
+    <div class="lyrics-grid">
+      <div class="lyrics-sidebar">
+        <div class="sidebar-section">
+          <h3>PRODUCTION_MANIFEST</h3>
+          <ul id="manifest-list">
+            <li>[Intro: Duke Edwards]</li>
+            <li>[Verse 1: Ye, Duke Edwards]</li>
+            <li>[Bridge: Ye]</li>
+            <li>[Outro: Duke Edwards]</li>
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <h3>TECHNICAL_LOG</h3>
+          <div class="tech-data" id="tech-data">
+            BPM: 88<br />
+            KEY: C MINOR<br />
+            DURATION: 03:42<br />
+            SOURCE: BULLY LP // YZY / GAMMA
+          </div>
+        </div>
+      </div>
+
+      <div id="lyrics-stage"></div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="copyright">© 2026 YZY / GAMMA. ALL RIGHTS RESERVED.</span>
+    <div class="footer-links">
+      <a href="/">HOME</a>
+      <a href="/tracklist">TRACKLIST</a>
+      <a href="#">LEGAL</a>
+    </div>
+  </footer>
+
+  <div class="pretext-stats">
+    <div class="stat"><span class="stat-value" id="stat-lines">0</span><span class="stat-label">Lines</span></div>
+    <div class="stat"><span class="stat-value" id="stat-reflow">0ms</span><span class="stat-label">Layout</span></div>
+    <div class="stat"><span class="stat-value" id="stat-dom">0</span><span class="stat-label">DOM reads</span></div>
+    <div class="stat"><span class="stat-value" id="stat-sections">0</span><span class="stat-label">Sections</span></div>
+    <div class="stat"><span class="stat-value" id="stat-engine">PRETEXT</span><span class="stat-label">Engine</span></div>
+  </div>
+
+  <div class="spotify-mini" id="spotify-mini">
+    <div class="spotify-mini-header">
+      <span class="spotify-mini-label">STREAM // BULLY</span>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="spotify-mini-badge">LIVE</span>
+        <button class="spotify-mini-toggle" id="spotify-toggle" aria-label="Toggle player">&#x25BC;</button>
+      </div>
+    </div>
+    <div class="spotify-mini-body expanded" id="spotify-mini-body">
+      <iframe
+        style="border-radius:0;"
+        src="https://open.spotify.com/embed/track/4LP6bmyAxdMNrqUrMpaVQ8?utm_source=generator&theme=0"
+        width="100%"
+        height="152"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+  <script>
+    const toggle = document.getElementById('spotify-toggle');
+    const body = document.getElementById('spotify-mini-body');
+    toggle.addEventListener('click', () => {
+      const isExpanded = body.classList.contains('expanded');
+      body.classList.toggle('expanded', !isExpanded);
+      body.classList.toggle('collapsed', isExpanded);
+      toggle.textContent = isExpanded ? '\u25B2' : '\u25BC';
+    });
+  </script>
+
+  <script type="module" src="./lyrics.ts"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "bully",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "HOST=${HOST:-127.0.0.1}; PORT=3000; pids=$(lsof -tiTCP:$PORT -sTCP:LISTEN 2>/dev/null); if [ -n \"$pids\" ]; then kill $pids 2>/dev/null || true; sleep 1; fi; bun pages/*.html --host=$HOST:$PORT",
+    "start:watch": "HOST=${HOST:-127.0.0.1}; PORT=3000; pids=$(lsof -tiTCP:$PORT -sTCP:LISTEN 2>/dev/null); if [ -n \"$pids\" ]; then kill $pids 2>/dev/null || true; sleep 1; fi; bun pages/*.html --watch --no-clear-screen --host=$HOST:$PORT",
+    "build": "bun run build.ts"
+  },
+  "dependencies": {
+    "@chenglou/pretext": "^0.0.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.7.0"
+  }
+}

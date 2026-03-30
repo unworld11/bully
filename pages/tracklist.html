@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>BULLY — TRACKLIST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --surface: #131313;
+      --surface-low: #1b1b1c;
+      --surface-container: #202020;
+      --surface-high: #2a2a2a;
+      --surface-highest: #353535;
+      --surface-lowest: #0e0e0e;
+      --primary: #ffffff;
+      --secondary: #c6c6c6;
+      --outline: #8e9192;
+      --outline-variant: #444748;
+      --error: #CC2228;
+      --on-primary: #2f3131;
+    }
+    html, body { min-height: 100%; background: var(--black); color: var(--primary); overflow-x: hidden; }
+    body { font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 32px; height: 80px;
+      background: var(--surface); border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .nav-logo {
+      background: var(--primary); color: var(--surface);
+      padding: 4px 16px; font-family: 'Epilogue', sans-serif;
+      font-weight: 900; font-size: 24px; text-transform: uppercase;
+      letter-spacing: -0.05em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      font-family: 'Epilogue', sans-serif; text-transform: uppercase;
+      font-weight: 900; letter-spacing: -0.05em; font-size: 14px;
+      text-decoration: none; padding: 2px 8px; transition: none;
+    }
+    .nav-links a.active { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
+    .nav-links a:not(.active) { color: var(--outline); }
+    .nav-links a:not(.active):hover { background: var(--primary); color: var(--surface); }
+    .nav-auth {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline); opacity: 0.5;
+      border: 1px solid rgba(142, 145, 146, 0.3); padding: 4px 8px;
+    }
+
+    /* Side Nav */
+    .side-nav {
+      position: fixed; left: 32px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 24px; z-index: 40;
+    }
+    .side-nav-label {
+      font-size: 12px; letter-spacing: 0.3em; color: var(--outline);
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .side-nav-label span { display: block; font-size: 10px; letter-spacing: 0.2em; color: var(--outline-variant); }
+    .side-nav-items { display: flex; flex-direction: column; gap: 16px; }
+    .side-nav-items a {
+      font-size: 14px; letter-spacing: 0.2em; color: var(--outline-variant);
+      text-decoration: none; transition: none;
+    }
+    .side-nav-items a:hover { color: var(--primary); }
+    .side-nav-items a.active { color: var(--primary); font-weight: 700; transform: scale(1.25); transform-origin: left; }
+
+    /* Main */
+    main {
+      padding: 128px 32px 96px 128px;
+      max-width: 1280px; margin: 0 auto; min-height: 100vh;
+    }
+
+    /* Header */
+    .page-header {
+      margin-bottom: 80px; display: grid; grid-template-columns: 2fr 1fr;
+      border: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .page-header-title {
+      padding: 32px; border-right: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .page-header-title h1 {
+      font-family: 'Epilogue', sans-serif; font-size: clamp(48px, 8vw, 96px);
+      font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; line-height: 0.9;
+    }
+    .page-header-meta {
+      padding: 32px; display: flex; flex-direction: column; justify-content: space-between;
+      background: var(--surface-lowest);
+    }
+    .page-header-meta .meta-block { display: flex; flex-direction: column; gap: 8px; }
+    .page-header-meta .meta-label {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline); text-transform: uppercase;
+    }
+    .page-header-meta .meta-value { font-size: 14px; color: var(--secondary); }
+    .meta-value.live { display: flex; align-items: center; gap: 8px; }
+    .meta-value.live .dot {
+      width: 8px; height: 8px; background: #ffb4ab;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* Ledger Table */
+    .ledger { border-top: 1px solid rgba(68, 71, 72, 0.2); border-left: 1px solid rgba(68, 71, 72, 0.2); }
+    .ledger-header {
+      display: grid; grid-template-columns: 60px 1fr 120px 120px;
+      border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+      background: var(--surface-low);
+    }
+    .ledger-header > div {
+      padding: 16px; border-right: 1px solid rgba(68, 71, 72, 0.2);
+      font-size: 10px; letter-spacing: 0.2em; color: var(--outline); text-transform: uppercase;
+      display: flex; align-items: center;
+    }
+    .ledger-header > div:first-child { justify-content: center; }
+    .ledger-header > div:last-child { justify-content: flex-end; }
+
+    .ledger-row {
+      display: grid; grid-template-columns: 60px 1fr 120px 120px;
+      border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+      cursor: crosshair; position: relative;
+    }
+    .ledger-row:hover { background: var(--surface-container); }
+    .ledger-row > div {
+      padding: 24px 16px; border-right: 1px solid rgba(68, 71, 72, 0.2);
+      display: flex; align-items: center;
+    }
+    .ledger-row > div:first-child { justify-content: center; }
+    .ledger-row > div:last-child { justify-content: flex-end; }
+    .track-id { font-size: 14px; color: var(--outline); }
+    .track-title {
+      font-family: 'Epilogue', sans-serif; font-size: 24px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: -0.02em; color: var(--primary);
+    }
+    .track-feat {
+      font-family: 'Space Grotesk', sans-serif; font-style: italic;
+      font-size: 14px; color: var(--outline); text-transform: lowercase; margin-left: 16px;
+    }
+    .track-duration { font-size: 14px; color: var(--outline-variant); }
+    .track-bitrate { font-size: 12px; color: var(--outline-variant); }
+
+    /* Title Canvas (pretext-measured) */
+    .track-title-container { position: relative; flex: 1; min-width: 0; }
+    .track-title-measured {
+      position: absolute; white-space: pre; pointer-events: none;
+      font-family: 'Epilogue', sans-serif; font-weight: 700;
+      text-transform: uppercase; letter-spacing: -0.02em; color: var(--primary);
+    }
+
+    /* Spotify Player Section */
+    .spotify-section {
+      margin-top: 80px;
+      border: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .spotify-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 32px;
+      background: var(--surface-lowest);
+      border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    .spotify-header-left { display: flex; flex-direction: column; gap: 8px; }
+    .spotify-header-label {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--error);
+      font-weight: 700; text-transform: uppercase;
+    }
+    .spotify-header-title {
+      font-family: 'Epilogue', sans-serif; font-size: 24px; font-weight: 900;
+      letter-spacing: -0.05em; text-transform: uppercase; color: var(--primary);
+    }
+    .spotify-header-right {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .spotify-badge {
+      font-size: 10px; letter-spacing: 0.15em; color: var(--outline);
+      border: 1px solid rgba(142, 145, 146, 0.3); padding: 4px 10px;
+      text-transform: uppercase;
+    }
+    .spotify-badge.live {
+      color: #1DB954; border-color: rgba(29, 185, 84, 0.4);
+    }
+    .spotify-embed-wrap {
+      padding: 24px; background: var(--surface);
+    }
+    .spotify-embed-wrap iframe {
+      border-radius: 12px; width: 100%;
+    }
+
+    /* Technical Footer */
+    .tech-footer {
+      margin-top: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      border-top: 1px solid rgba(68, 71, 72, 0.2); padding-top: 48px;
+    }
+    .tech-note-label {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--error);
+      font-weight: 700; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .tech-note-text { font-size: 14px; color: var(--outline); line-height: 1.6; }
+    .tech-specs { display: flex; flex-direction: column; gap: 8px; }
+    .tech-spec {
+      display: flex; justify-content: space-between;
+      border-bottom: 1px solid rgba(68, 71, 72, 0.1); padding: 4px 0;
+    }
+    .tech-spec .spec-label { font-size: 10px; color: var(--outline); text-transform: uppercase; }
+    .tech-spec .spec-value { font-size: 12px; color: var(--primary); }
+
+    /* Pretext Stats */
+    .pretext-stats {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6, 6, 10, 0.88); backdrop-filter: blur(12px);
+      padding: 10px 24px; display: flex; gap: 32px; align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px; color: rgba(255, 255, 255, 0.35);
+    }
+    .stat { display: flex; gap: 6px; align-items: center; }
+    .stat-value { color: rgba(255, 255, 255, 0.7); font-weight: 600; }
+    .stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Footer */
+    footer {
+      width: 100%; padding: 48px 32px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      background: var(--surface-lowest); border-top: 1px solid rgba(68, 71, 72, 0.2);
+    }
+    footer .copyright { font-size: 10px; letter-spacing: 0.1em; color: var(--outline); text-transform: uppercase; }
+    footer .footer-links { display: flex; gap: 32px; }
+    footer .footer-links a {
+      font-size: 10px; letter-spacing: 0.1em; color: var(--outline);
+      text-transform: uppercase; text-decoration: none; transition: none;
+    }
+    footer .footer-links a:hover { color: var(--error); }
+
+    @media (max-width: 768px) {
+      .nav-links, .side-nav { display: none; }
+      main { padding: 128px 16px 96px 16px; }
+      .page-header { grid-template-columns: 1fr; }
+      .page-header-title { border-right: none; border-bottom: 1px solid rgba(68, 71, 72, 0.2); }
+      .ledger-header, .ledger-row { grid-template-columns: 40px 1fr 80px; }
+      .ledger-header > div:nth-child(3), .ledger-row > div:nth-child(3) { display: none; }
+      .tech-footer { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">BULLY</a>
+    <div class="nav-links">
+      <a href="/">HOME</a>
+      <a href="/tracklist" class="active">TRACKLIST</a>
+      <a href="/lyrics">LYRICS</a>
+      <a href="#">CREDITS</a>
+    </div>
+    <div class="nav-auth">YZY // GAMMA</div>
+  </nav>
+
+  <aside class="side-nav">
+    <div class="side-nav-label">TRACKS<span>V.01</span></div>
+    <div class="side-nav-items" id="side-nav-items"></div>
+  </aside>
+
+  <main>
+    <header class="page-header">
+      <div class="page-header-title">
+        <h1 id="header-title">TRACK<br />LIST</h1>
+      </div>
+      <div class="page-header-meta">
+        <div class="meta-block">
+          <span class="meta-label">MANIFEST ID</span>
+          <span class="meta-value">BULLY-LP-2026-V1</span>
+        </div>
+        <div class="meta-block" style="margin-top: 32px;">
+          <span class="meta-label">STATUS</span>
+          <span class="meta-value live"><span class="dot"></span>LIVE_SYSTEM_ACTIVE</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="ledger" id="ledger"></section>
+
+    <section class="spotify-section" id="spotify-section">
+      <div class="spotify-header">
+        <div class="spotify-header-left">
+          <span class="spotify-header-label">STREAM_INTERFACE</span>
+          <span class="spotify-header-title">LISTEN NOW</span>
+        </div>
+        <div class="spotify-header-right">
+          <span class="spotify-badge live">STREAMING</span>
+          <span class="spotify-badge">SPOTIFY</span>
+        </div>
+      </div>
+      <div class="spotify-embed-wrap">
+        <iframe
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/album/5poA9SAx0Xiz1cf17fWBLS?utm_source=generator&theme=0"
+          width="100%"
+          height="352"
+          frameBorder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="tech-footer">
+      <div>
+        <div class="tech-note-label">PRODUCTION_NOTE</div>
+        <p class="tech-note-text">
+          THE 12TH STUDIO ALBUM BY YE. RELEASED MARCH 28, 2026 VIA YZY AND GAMMA. 18 TRACKS. 42 MINUTES 26 SECONDS. PRODUCED BY YE, JAMES BLAKE, 88-KEYS, THE LEGENDARY TRAXSTER, AND OTHERS.
+        </p>
+      </div>
+      <div class="tech-specs">
+        <div class="tech-spec">
+          <span class="spec-label">MASTER_TYPE</span>
+          <span class="spec-value">ANALOG_DESTRUCTION</span>
+        </div>
+        <div class="tech-spec">
+          <span class="spec-label">FILE_FORMAT</span>
+          <span class="spec-value">PCM_WAV</span>
+        </div>
+        <div class="tech-spec">
+          <span class="spec-label">LOUDNESS</span>
+          <span class="spec-value">-6.0 LUFS</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="copyright">© 2026 YZY / GAMMA. ALL RIGHTS RESERVED.</span>
+    <div class="footer-links">
+      <a href="/">HOME</a>
+      <a href="/lyrics">LYRICS</a>
+      <a href="#">LEGAL</a>
+    </div>
+  </footer>
+
+  <div class="pretext-stats">
+    <div class="stat"><span class="stat-value" id="stat-tracks">0</span><span class="stat-label">Tracks</span></div>
+    <div class="stat"><span class="stat-value" id="stat-measured">0</span><span class="stat-label">Measured</span></div>
+    <div class="stat"><span class="stat-value" id="stat-reflow">0ms</span><span class="stat-label">Reflow</span></div>
+    <div class="stat"><span class="stat-value" id="stat-engine">PRETEXT</span><span class="stat-label">Engine</span></div>
+  </div>
+
+  <script type="module" src="./tracklist.ts"></script>
+</body>
+</html>

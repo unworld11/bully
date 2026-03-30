@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Slack__slack_search_public_and_private",
+      "mcp__claude_ai_Slack__slack_send_message_draft",
+      "Bash(find /Users/vedantasp/bully -type f \\\\\\(-name *.py -o -name *.ts -o -name *.tsx -o -name *.js \\\\\\))"
+    ]
+  }
+}
