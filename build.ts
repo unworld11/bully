@@ -27,10 +27,11 @@ for (const htmlFile of htmlFiles) {
       process.exit(1)
     }
     const jsCode = await result.outputs[0]!.text()
-    html = html.replace(
-      `<script type="module" src="./${tsFile}"></script>`,
-      `<script type="module">${jsCode}</script>`,
-    )
+    const scriptTag = `<script type="module" src="./${tsFile}"></script>`
+    const idx = html.indexOf(scriptTag)
+    if (idx !== -1) {
+      html = html.slice(0, idx) + `<script type="module">${jsCode}<\/script>` + html.slice(idx + scriptTag.length)
+    }
   }
 
   const outName = htmlFile === 'index.html' ? 'index.html' : htmlFile
