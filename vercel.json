@@ -4,6 +4,7 @@
   "installCommand": "bun install",
   "rewrites": [
     { "source": "/tracklist", "destination": "/tracklist.html" },
-    { "source": "/lyrics", "destination": "/lyrics.html" }
+    { "source": "/lyrics", "destination": "/lyrics.html" },
+    { "source": "/garden", "destination": "/garden.html" }
   ]
 }

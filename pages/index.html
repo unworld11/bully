@@ -159,14 +159,6 @@
       font-size: 20px; line-height: 1.6; letter-spacing: -0.02em; color: var(--secondary);
       text-shadow: 0 1px 8px rgba(0,0,0,0.8);
     }
-    .manifesto-text button {
-      width: fit-content; padding: 16px 48px;
-      border: 1px solid var(--primary); background: rgba(0,0,0,0.5);
-      color: var(--primary); font-family: 'Space Grotesk', sans-serif;
-      text-transform: uppercase; letter-spacing: 0.2em; font-size: 14px;
-      cursor: pointer; transition: none; backdrop-filter: blur(4px);
-    }
-    .manifesto-text button:hover { background: var(--primary); color: var(--on-primary); }
     .manifesto-meta {
       display: flex; flex-direction: column; gap: 16px;
       align-items: flex-end; text-align: right;
@@ -232,8 +224,37 @@
       font-weight: 700; text-transform: uppercase;
     }
 
+    /* Mobile Menu */
+    .nav-burger {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 8px;
+    }
+    .nav-burger span {
+      display: block; width: 24px; height: 2px; background: var(--primary);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      display: none; position: fixed; top: 80px; left: 0; right: 0; z-index: 49;
+      background: var(--surface); border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+      flex-direction: column; padding: 16px 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 16px;
+      text-transform: uppercase; letter-spacing: -0.05em; text-decoration: none;
+      color: var(--outline); padding: 16px 0;
+      border-bottom: 1px solid rgba(68, 71, 72, 0.15);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a.active { color: var(--primary); }
+
     @media (max-width: 768px) {
       .nav-links, .side-nav, .verified-badge { display: none; }
+      .nav-burger { display: flex; }
+      .nav-auth { display: none; }
       .manifesto { grid-template-columns: 1fr; }
       .meta-grid { grid-template-columns: repeat(2, 1fr); }
       .metadata { flex-direction: column; }
@@ -247,10 +268,18 @@
       <a href="/" class="active">HOME</a>
       <a href="/tracklist">TRACKLIST</a>
       <a href="/lyrics">LYRICS</a>
-      <a href="#">CREDITS</a>
+      <a href="/garden">GARDEN</a>
     </div>
     <div class="nav-auth">YZY // GAMMA</div>
+    <button class="nav-burger" id="nav-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/" class="active">HOME</a>
+    <a href="/tracklist">TRACKLIST</a>
+    <a href="/lyrics">LYRICS</a>
+  </div>
 
   <aside class="side-nav">
     <div class="side-nav-label">TRACKS<span>V.01</span></div>
@@ -291,7 +320,6 @@
         <div class="manifesto">
           <div class="manifesto-text">
             <p>A STUDY IN INTERNAL STRUGGLE VS STATE OF GRACE. THE 12TH STUDIO ALBUM BY YE.</p>
-            <button>PRE-ORDER</button>
           </div>
           <div class="manifesto-meta">
             <span>RECORDED IN ISOLATION</span>
@@ -351,6 +379,12 @@
 
   <div class="verified-badge">BULLY // MARCH 2026</div>
 
+  <script>
+    document.getElementById('nav-burger').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  </script>
   <script type="module" src="./home.ts"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 import { prepareWithSegments, walkLineRanges, type PreparedTextWithSegments } from '@chenglou/pretext'
 
+const LYRICS_TRACK_IDS = new Set(['01','03','05','06','08','09','11','12','13','14','15','16','18'])
+
 type Track = {
   id: string
   title: string
@@ -82,9 +84,13 @@ function buildLedger(): void {
     titleWidths.push({ title: track.title, width })
     measuredCount++
 
-    const row = document.createElement('div')
+    const hasLyrics = LYRICS_TRACK_IDS.has(track.id)
+    const row = document.createElement(hasLyrics ? 'a' : 'div')
     row.className = 'ledger-row'
     row.id = `track-${track.id}`
+    if (hasLyrics) {
+      ;(row as HTMLAnchorElement).href = `/lyrics?track=${track.id}`
+    }
 
     const idCell = document.createElement('div')
     idCell.innerHTML = `<span class="track-id">${track.id}</span>`

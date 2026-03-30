@@ -354,7 +354,19 @@ function render(): void {
 
 await document.fonts.ready
 buildTrackSelector()
-switchTrack(TRACKS_LYRICS[0]!)
+
+const urlTrackId = new URLSearchParams(window.location.search).get('track')
+let startIndex = 0
+if (urlTrackId) {
+  const idx = TRACKS_LYRICS.findIndex(t => t.id === urlTrackId)
+  if (idx !== -1) startIndex = idx
+}
+currentTrackIndex = startIndex
+selectorContainer.querySelectorAll('button')[startIndex]?.classList.add('active')
+selectorContainer.querySelectorAll('button').forEach((b, i) => {
+  b.className = i === startIndex ? 'active' : ''
+})
+switchTrack(TRACKS_LYRICS[startIndex]!)
 
 let rafPending = false
 window.addEventListener('resize', () => {

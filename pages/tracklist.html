@@ -124,7 +124,9 @@
       display: grid; grid-template-columns: 60px 1fr 120px 120px;
       border-bottom: 1px solid rgba(68, 71, 72, 0.2);
       cursor: crosshair; position: relative;
+      text-decoration: none; color: inherit;
     }
+    a.ledger-row { cursor: pointer; }
     .ledger-row:hover { background: var(--surface-container); }
     .ledger-row > div {
       padding: 24px 16px; border-right: 1px solid rgba(68, 71, 72, 0.2);
@@ -234,8 +236,37 @@
     }
     footer .footer-links a:hover { color: var(--error); }
 
+    /* Mobile Menu */
+    .nav-burger {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 8px;
+    }
+    .nav-burger span {
+      display: block; width: 24px; height: 2px; background: var(--primary);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .mobile-menu {
+      display: none; position: fixed; top: 80px; left: 0; right: 0; z-index: 49;
+      background: var(--surface); border-bottom: 1px solid rgba(68, 71, 72, 0.2);
+      flex-direction: column; padding: 16px 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 16px;
+      text-transform: uppercase; letter-spacing: -0.05em; text-decoration: none;
+      color: var(--outline); padding: 16px 0;
+      border-bottom: 1px solid rgba(68, 71, 72, 0.15);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a.active { color: var(--primary); }
+
     @media (max-width: 768px) {
       .nav-links, .side-nav { display: none; }
+      .nav-burger { display: flex; }
+      .nav-auth { display: none; }
       main { padding: 128px 16px 96px 16px; }
       .page-header { grid-template-columns: 1fr; }
       .page-header-title { border-right: none; border-bottom: 1px solid rgba(68, 71, 72, 0.2); }
@@ -252,10 +283,18 @@
       <a href="/">HOME</a>
       <a href="/tracklist" class="active">TRACKLIST</a>
       <a href="/lyrics">LYRICS</a>
-      <a href="#">CREDITS</a>
+      <a href="/garden">GARDEN</a>
     </div>
     <div class="nav-auth">YZY // GAMMA</div>
+    <button class="nav-burger" id="nav-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/">HOME</a>
+    <a href="/tracklist" class="active">TRACKLIST</a>
+    <a href="/lyrics">LYRICS</a>
+  </div>
 
   <aside class="side-nav">
     <div class="side-nav-label">TRACKS<span>V.01</span></div>
@@ -346,6 +385,12 @@
     <div class="stat"><span class="stat-value" id="stat-engine">PRETEXT</span><span class="stat-label">Engine</span></div>
   </div>
 
+  <script>
+    document.getElementById('nav-burger').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  </script>
   <script type="module" src="./tracklist.ts"></script>
 </body>
 </html>
