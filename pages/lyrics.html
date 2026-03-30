@@ -121,28 +121,30 @@
       font-size: 10px; color: var(--outline-variant); line-height: 1.8;
     }
 
-    /* Lyrics Stage — pretext editorial engine reflow */
-    #lyrics-stage { position: relative; width: 100%; min-height: 400px; overflow: visible; }
-    .lyrics-line {
-      position: absolute; white-space: pre; pointer-events: none;
+    /* Lyrics Stage — two-column verse layout */
+    #lyrics-stage { position: relative; width: 100%; min-height: 400px; }
+    #sparkle-canvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    .verse-columns {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px;
+      position: relative; z-index: 2;
+    }
+    .verse-column { display: flex; flex-direction: column; }
+    .verse-stanza { margin-bottom: 40px; }
+    .verse-stanza.muted { opacity: 0.35; }
+    .verse-label {
+      font-size: 9px; letter-spacing: 0.2em; color: var(--outline-variant);
+      text-transform: uppercase; margin-bottom: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+    }
+    .verse-line {
       font-family: 'Space Grotesk', sans-serif; font-weight: 300;
-      color: var(--primary); user-select: text; cursor: text;
-      letter-spacing: 0.002em;
-      transition: color 120ms ease;
+      font-size: 17px; line-height: 1.75; color: var(--primary);
+      letter-spacing: 0.005em; cursor: default;
     }
-    .lyrics-line:hover { color: var(--error); }
-
-    .pq-box {
-      position: absolute; pointer-events: none;
-      border-left: 3px solid var(--outline-variant);
-      background: rgba(32, 32, 32, 0.4);
-    }
-    .pq-line {
-      position: absolute; white-space: pre; pointer-events: none;
-      font-family: 'Epilogue', sans-serif; font-weight: 900;
-      text-transform: uppercase; letter-spacing: -0.05em;
-      color: var(--primary); line-height: 0.9;
-    }
+    .verse-line:hover { color: var(--error); }
 
     /* Pretext Stats */
     .pretext-stats {
@@ -237,6 +239,8 @@
       .track-selector { gap: 4px; }
       .track-selector button { padding: 4px 10px; font-size: 10px; }
       .spotify-mini { width: 280px; right: 16px; bottom: 48px; }
+      .verse-columns { grid-template-columns: 1fr; gap: 0; }
+      .verse-line { font-size: 15px; }
     }
   </style>
 </head>
@@ -308,7 +312,9 @@
         </div>
       </div>
 
-      <div id="lyrics-stage"></div>
+      <div id="lyrics-stage">
+        <canvas id="sparkle-canvas"></canvas>
+      </div>
     </div>
   </main>
 
